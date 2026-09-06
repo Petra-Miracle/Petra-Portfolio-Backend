@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TechCategory {
+  GENERAL
+  AI
+}
+
+enum ProjectType {
+  PROJECT
+  COMPETITION
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Technology {
+  id        String       @id @default(cuid())
+  name      String
+  category  TechCategory @default(GENERAL)
+  icon      String?
+  order     Int          @default(0)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Project {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  type        ProjectType @default(PROJECT)
+  techStack   String[]
+  demoUrl     String?
+  repoUrl     String?
+  imageUrl    String?
+  result      String?
+  year        Int?
+  order       Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
