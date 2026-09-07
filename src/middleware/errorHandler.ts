@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { MulterError } from "multer";
 import { ZodError } from "zod";
 
 export function notFoundHandler(req: Request, res: Response): void {
@@ -14,6 +15,20 @@ export function errorHandler(
 ): void {
   if (err instanceof ZodError) {
     res.status(400).json({ error: "Validation error", details: err.flatten() });
+    return;
+  }
+
+  if (err instanceof MulterError) {
+    const message =
+      err.code === "LIMIT_FILE_SIZE"
+        ? "File too large (max 5MB)"
+        : err.message;
+    res.status(400).json({ error: message });
+    return;
+  }
+
+  if (err instanceof Error && err.message === "Only image files are allowed") {
+    res.status(400).json({ error: err.message });
     return;
   }
 

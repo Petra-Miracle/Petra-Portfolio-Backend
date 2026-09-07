@@ -84,6 +84,16 @@ Gunakan token di header `Authorization: Bearer <token>` untuk endpoint yang butu
 | PUT    | `/api/projects/:id`| Admin | field sama, semua opsional                                                                                    |
 | DELETE | `/api/projects/:id`| Admin | -                                                                                                              |
 
+### Uploads (`/api/uploads`)
+
+| Method | Path           | Auth  | Body                                          |
+| ------ | -------------- | ----- | ---------------------------------------------- |
+| POST   | `/api/uploads` | Admin | `multipart/form-data`, field name `file` (image, max 5MB) |
+
+Uploads the image to Vercel Blob and returns `{ url }`. Use the returned `url` as `imageUrl` when creating/updating a project — this endpoint doesn't touch the `Project` table itself, it only produces a hosted URL.
+
+Requires `BLOB_READ_WRITE_TOKEN` (see `.env.example`) — connect a Blob store to the project in the Vercel dashboard first.
+
 ### Health check
 
 `GET /api/health` → `{ status: "ok" }`
