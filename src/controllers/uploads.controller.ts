@@ -9,7 +9,8 @@ export async function uploadImage(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  const filename = `projects/${Date.now()}-${file.originalname}`;
+  const folder = file.mimetype === "application/pdf" ? "documents" : "projects";
+  const filename = `${folder}/${Date.now()}-${file.originalname}`;
 
   const blob = await put(filename, file.buffer, {
     access: "public",

@@ -35,6 +35,12 @@ model Technology {
   updatedAt DateTime     @updatedAt
 }
 
+model SiteSettings {
+  id        String   @id @default("singleton")
+  cvUrl     String?
+  updatedAt DateTime @updatedAt
+}
+
 model Project {
   id          String      @id @default(cuid())
   title       String
