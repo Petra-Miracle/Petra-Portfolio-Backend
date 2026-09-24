@@ -12,6 +12,10 @@ import { uploadsRouter } from "./routes/uploads.routes";
 
 const app = express();
 
+// Deployed behind a reverse proxy (Render) — needed so express-rate-limit
+// (and req.ip generally) sees the real client IP from X-Forwarded-For.
+app.set("trust proxy", 1);
+
 app.use(helmet());
 app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
