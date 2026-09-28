@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { env } from "./config/env";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import { authRouter } from "./routes/auth.routes";
+import { certificatesRouter } from "./routes/certificates.routes";
 import { projectsRouter } from "./routes/projects.routes";
 import { settingsRouter } from "./routes/settings.routes";
 import { technologiesRouter } from "./routes/technologies.routes";
@@ -29,6 +30,7 @@ app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/auth", authRouter);
 app.use("/api/technologies", technologiesRouter);
 app.use("/api/projects", projectsRouter);
+app.use("/api/certificates", certificatesRouter);
 app.use("/api/uploads", uploadsRouter);
 app.use("/api/settings", settingsRouter);
 
