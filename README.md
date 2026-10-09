@@ -71,7 +71,7 @@ Gunakan token di header `Authorization: Bearer <token>` untuk endpoint yang butu
 | Method | Path                    | Auth  | Body                                                          |
 | ------ | ----------------------- | ----- | --------------------------------------------------------------- |
 | GET    | `/api/technologies`     | Publik| -                                                                 |
-| POST   | `/api/technologies`     | Admin | `{ name, category: "GENERAL"|"AI", icon?, order? }`             |
+| POST   | `/api/technologies`     | Admin | `{ name, category: "GENERAL" \| "AI", icon?, order? }`          |
 | PUT    | `/api/technologies/:id` | Admin | field sama, semua opsional                                       |
 | DELETE | `/api/technologies/:id` | Admin | -                                                                 |
 
@@ -80,9 +80,38 @@ Gunakan token di header `Authorization: Bearer <token>` untuk endpoint yang butu
 | Method | Path               | Auth  | Body / Query                                                                                             |
 | ------ | ------------------ | ----- | ----------------------------------------------------------------------------------------------------------- |
 | GET    | `/api/projects`    | Publik| Query opsional `?type=PROJECT` atau `?type=COMPETITION`                                                     |
-| POST   | `/api/projects`    | Admin | `{ title, description, type: "PROJECT"|"COMPETITION", techStack: string[], demoUrl?, repoUrl?, imageUrl?, result?, year?, order? }` |
+| POST   | `/api/projects`    | Admin | `{ title, description, type: "PROJECT" \| "COMPETITION", techStack: string[], demoUrl?, repoUrl?, imageUrl?, result?, year?, order? }` |
 | PUT    | `/api/projects/:id`| Admin | field sama, semua opsional                                                                                    |
 | DELETE | `/api/projects/:id`| Admin | -                                                                                                              |
+
+### Certificates (`/api/certificates`)
+
+| Method | Path                     | Auth  | Body                                                                 |
+| ------ | ------------------------ | ----- | --------------------------------------------------------------------- |
+| GET    | `/api/certificates`      | Publik| -                                                                       |
+| POST   | `/api/certificates`      | Admin | `{ title, issuer, year?, credentialUrl?, imageUrl?, order? }`         |
+| POST   | `/api/certificates/bulk` | Admin | `{ items: [{ title, issuer, year?, credentialUrl?, imageUrl?, order? }, ...] }` (1-50 item) |
+| PUT    | `/api/certificates/:id`  | Admin | field sama, semua opsional                                             |
+| DELETE | `/api/certificates/:id`  | Admin | -                                                                       |
+
+### Gallery (`/api/gallery`)
+
+| Method | Path                | Auth  | Body                                                    |
+| ------ | ------------------- | ----- | ---------------------------------------------------------|
+| GET    | `/api/gallery`      | Publik| -                                                          |
+| POST   | `/api/gallery`      | Admin | `{ caption, imageUrl, year?, order? }`                    |
+| POST   | `/api/gallery/bulk` | Admin | `{ items: [{ caption, imageUrl, year?, order? }, ...] }` (1-50 item) |
+| PUT    | `/api/gallery/:id`  | Admin | field sama, semua opsional                                 |
+| DELETE | `/api/gallery/:id`  | Admin | -                                                            |
+
+### Settings (`/api/settings`)
+
+Singleton — satu baris pengaturan situs (saat ini cuma CV URL), bukan koleksi.
+
+| Method | Path            | Auth  | Body                      |
+| ------ | --------------- | ----- | --------------------------- |
+| GET    | `/api/settings` | Publik| -                           |
+| PUT    | `/api/settings` | Admin | `{ cvUrl: string \| null }` |
 
 ### Uploads (`/api/uploads`)
 
